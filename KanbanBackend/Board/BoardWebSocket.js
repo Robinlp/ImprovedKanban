@@ -117,7 +117,7 @@ function saveBoard(board) {
             let sql = `UPDATE Board SET BoardObject = '${boardAsJSON}' WHERE BoardID = ${board.id}`;
             con.query(sql, function (err, result) {
                 if (err) {
-                    console.log('Could not save. We should probably do something about this. Oh well... ¯\_(**)_/¯', err);
+                    console.log('Could not save. We should probably do something about this. Oh well... ï¿½\_(**)_/ï¿½', err);
                 }
                 else {
                     console.log("Board saved");
@@ -125,7 +125,7 @@ function saveBoard(board) {
             });
         });
     } catch (e) {
-        console.log('Could not save. We should probably do something about this. Oh well... ¯\_(**)_/¯');
+        console.log('Could not save. We should probably do something about this. Oh well... ï¿½\_(**)_/ï¿½');
     }
 }
 
