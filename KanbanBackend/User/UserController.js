@@ -48,20 +48,23 @@ userRouter.post('/login', function (req, res, next){
     con.connect(function(err){
         console.log(req.body)
         if (err) next (err)
-        let sql = `SELECT * FROM Users WHERE username = '${username}'
-        AND password = '${password}'`;
+        let sql = `SELECT * FROM Users WHERE username = '${username}'`;
         console.log(sql)
         con.query(sql, function(err, result){
             if(err) next(err)
         else{
-            if(result.length > 0){
-                res.send({ username: `${username}` })
-                console.log("Sending 200 back")
+            if(result[0].Username === username){
+                if(verifyPassword(password, result[0].Password)){
+                    res.send({ username: `${username}` })
+                    console.log("Sending 200 back")
+                }else{
+                    res.status(403).send()
+                    console.log("Wrong Password. Sending 403 back")
+                }
 
-            }
-            else{
+            }else{
                 res.status(403).send()
-                console.log("Sending 403 back")
+                console.log("No such user. Sending 403 back")
             }
         }
     });
@@ -81,6 +84,18 @@ function hashAndSaltPassword(password){
     let salt = generateSalt();
     let hashedPassword = createHash(password, salt);
     return hashedPassword + ':' + salt;
+}
+
+function verifyPassword(password, DBPassword){
+    console.log('clear password = '+password);
+    let DBPasswordAndSalt = DBPassword.split(':');
+    let salt = DBPasswordAndSalt[1];
+    console.log('DBPasswordAndSalt = '+ DBPasswordAndSalt);
+    let loginPassword = createHash(password, salt);
+    console.log('loginPassword'+ loginPassword);
+
+    return DBPasswordAndSalt[0] === loginPassword;
+
 }
 
 
