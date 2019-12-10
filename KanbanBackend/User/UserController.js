@@ -91,10 +91,10 @@ function verifyPassword(password, DBPassword){
     let DBPasswordAndSalt = DBPassword.split(':');
     let salt = DBPasswordAndSalt[1];
     console.log('DBPasswordAndSalt = '+ DBPasswordAndSalt);
-    let loginPassword = createHash(password, salt);
-    console.log('loginPassword'+ loginPassword);
+    let hashedLoginPassword = createHash(password, salt);
+    console.log('hashedLoginPassword = '+ hashedLoginPassword);
 
-    return DBPasswordAndSalt[0] === loginPassword;
+    return DBPasswordAndSalt[0] === hashedLoginPassword;
 
 }
 
