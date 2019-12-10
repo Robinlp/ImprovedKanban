@@ -1,3 +1,4 @@
+let crypto = require('crypto');
 var express = require('express');
 var userRouter = express.Router();
 const fs = require('fs');
@@ -7,6 +8,7 @@ let dbInfoArray = dbInfo.split(",");
 userRouter.put('/CreateUser', function (req, res, next) {
     let username = req.body.Username;
     let password = req.body.Password;
+    let hashedPassword = hashAndSaltPassword(password);
     console.log("Creating new user:", username);
     let con = mysql.createConnection({
         host: dbInfoArray[0],
@@ -17,7 +19,7 @@ userRouter.put('/CreateUser', function (req, res, next) {
 
     con.connect(function (err) {
         if (err) next(err);
-        let sql = `INSERT INTO Users VALUES ('${username}', '${password}');`;
+        let sql = `INSERT INTO Users VALUES ('${username}', '${hashedPassword}');`;
         console.log("Connected!");
         con.query(sql, function (err, result) {
             if (err){
@@ -67,8 +69,19 @@ userRouter.post('/login', function (req, res, next){
 console.log("REQUEST GOTTEN DATA IS: " + username + ": " + password)
 });
 
+function generateSalt(){
+    return crypto.randomBytes(8).toString('hex')
+}
 
+function createHash(password, salt){
+    return crypto.createHmac('sha256', salt).update(password).digest('hex');
+}
 
+function hashAndSaltPassword(password){
+    let salt = generateSalt();
+    let hashedPassword = createHash(password, salt);
+    return hashedPassword + ':' + salt;
+}
 
 
 module.exports = userRouter;
