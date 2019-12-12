@@ -5,9 +5,14 @@ let dbInfo = fs.readFileSync('./DBInfo.txt', 'utf8');
 let dbInfoArray = dbInfo.split(",");
 const Kanban = require('./DataStructures.js');
 const { Server } = require('ws');
+let https = require('https');
+let privateKey = fs.readFileSync('../ssl/my-key.key','utf8');
+let cert = fs.readFileSync('../ssl/my-crt.crt','utf8');
 
 let startWebsocket = function () {
-    let wsserver = new Server({ port: 4040, path: '/Board' });
+    let httpsWebsocketServer = https.createServer({key:privateKey, cert:cert})
+
+    let wsserver = new Server({ server:httpsWebsocketServer, path: '/Board' });
 
     let boards = [
         //new Kanban.Board(1, "Example", [
@@ -99,6 +104,7 @@ let startWebsocket = function () {
             console.log(`An error occured. ${ws._socket.remoteAddress} caused the following error: ${event.message}`);
         }
     });
+    httpsWebsocketServer.listen(4040);
 }
 
 function saveBoard(board) {
