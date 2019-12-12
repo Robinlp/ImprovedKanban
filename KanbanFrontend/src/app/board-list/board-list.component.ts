@@ -12,19 +12,19 @@ export class BoardListComponent implements OnInit {
   BoardList = [{ BoardID: '', Title: 'No boards found. Either login or create new board' }];
 
   DeleteBoard(id) {
-    fetch('http://localhost:8080/Board/DeleteBoard?BoardID=' + id, { method: 'POST' });
+    fetch('https://localhost:8080/Board/DeleteBoard?BoardID=' + id, { method: 'POST' });
     window.location.reload();
   }
 
   CreateBoard(data) {
     let username = this.cookie.get("data");
-    fetch(`http://localhost:8080/Board/CreateBoard?username=${username}&title=${data.title}`, { method: 'POST' });
+    fetch(`https://localhost:8080/Board/CreateBoard?username=${username}&title=${data.title}`, { method: 'POST' });
     window.location.reload();
   }
 
   addExistingBoard(data){
     let username = this.cookie.get("data");
-    fetch(`http://localhost:8080/Board/InviteToBoard?username=${username}&boardid=${data.BoardID}`, { method: 'POST' });
+    fetch(`https://localhost:8080/Board/InviteToBoard?username=${username}&boardid=${data.BoardID}`, { method: 'POST' });
     window.location.reload();
   }
 
@@ -50,7 +50,7 @@ export class BoardListComponent implements OnInit {
       }
     }
 
-    const boards = await getData('http://localhost:8080/Board/GetBoards?username=' + username);
+    const boards = await getData('https://localhost:8080/Board/GetBoards?username=' + username);
     if (boards != undefined) {
       this.BoardList.pop();
       let counter = 0;

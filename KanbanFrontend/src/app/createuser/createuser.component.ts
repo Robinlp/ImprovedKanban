@@ -24,7 +24,7 @@ export class CreateuserComponent implements OnInit {
       console.log(formData)
       //We call out method which will send the request with an url and our json object
       //data is the response from the server
-      const data = await postData('http://localhost:8080/user/CreateUser/',formDataJSON);
+      const data = await postData('https://localhost:8080/user/CreateUser/',formDataJSON);
       //If data is not undefined, which means the user + password combo did exist
       if(data != undefined){
       //We display some HTML to show the user it worked

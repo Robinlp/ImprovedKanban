@@ -18,7 +18,7 @@ export class LoginComponent implements OnInit {
       formData = JSON.stringify(formData)
       //We call out method which will send the request with an url and our json string
       //data is the response from the server
-      const data = await postData('http://localhost:8080/user/login/',formData);
+      const data = await postData('https://localhost:8080/user/login/',formData);
       //If data is not undefined, which means the user + password combo did exist
         console.log(data);
         if (data != undefined) {

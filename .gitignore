@@ -25,3 +25,4 @@ KanbanBackend/DBInfo.txt
 /.vs
 KanbanBackend/node_modules/
 KanbanBackend/package-lock.json
+ssl/
