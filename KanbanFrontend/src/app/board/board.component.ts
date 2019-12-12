@@ -29,7 +29,7 @@ export class BoardComponent implements OnInit {
   ngOnInit() {
     let boardid123 = this.route.snapshot.paramMap.get("BoardID");
     this.activeBoardId = +boardid123;
-    this.WebSocket1 = new WebSocket("ws://localhost:40/Board");
+    this.WebSocket1 = new WebSocket("ws://localhost:4040/Board");
     let datatosend = JSON.stringify({ messageType: "InitialMessage", BoardID: this.activeBoardId });
 
 

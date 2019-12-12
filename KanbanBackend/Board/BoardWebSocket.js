@@ -7,7 +7,7 @@ const Kanban = require('./DataStructures.js');
 const { Server } = require('ws');
 
 let startWebsocket = function () {
-    let wsserver = new Server({ port: 40, path: '/Board' });
+    let wsserver = new Server({ port: 4040, path: '/Board' });
 
     let boards = [
         //new Kanban.Board(1, "Example", [
