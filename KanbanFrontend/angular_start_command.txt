@@ -1,1 +1,1 @@
-ng serve --ssl --ssl-cert ./ssl/my-crt.crt --ssl-key my-key.key --open
+ng serve --ssl --ssl-cert ../ssl/my-crt.crt --ssl-key ../ssl/my-key.key --open
