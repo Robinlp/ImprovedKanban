@@ -24,3 +24,9 @@ Start the website:
 
 	- open a terminal in the KanbanFrontend folder
 	- run the command: ng serve --ssl --open
+
+===========================================================================================================
+
+You can either create a new user or use the existing user:
+Username: SecureUser
+Password: password123
